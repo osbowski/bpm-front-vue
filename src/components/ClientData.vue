@@ -12,13 +12,13 @@
       <v-btn @click="openDetails">Szczegóły</v-btn>
     </v-card-actions>
 
-    <!-- <ClientDataDetails v-model="dialog" v-if="dialogInitialized" /> -->
+    <ClientDataDetails v-model="dialog" v-if="dialogInitialized" />
   </v-card>
 </template>
 <script>
 export default {
   components: {
-    // "ClientDataDetails": () => import('./ClientDataDetails')
+    "ClientDataDetails": () => import('./ClientDataDetails')
   },
   data: () => ({
     client: {
