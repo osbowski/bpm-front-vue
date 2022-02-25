@@ -30,7 +30,7 @@ const deploy = async function(file, options) {
         },
         strictSSL: false
       },
-      (err, httpResponse, body) => {
+      (err, httpResponse) => {
         if (err) {
           console.warn('upload failed:', err);
           resolve(false);

@@ -1,44 +1,71 @@
 <template>
-  <v-card elevation="2">
-    <v-toolbar color="purple darken-3" dark>
-      <v-toolbar-title> Dane klienta </v-toolbar-title>
-    </v-toolbar>
-    <v-card-text
-      ><span><b>Imię: </b>{{ client.name }}</span
-      ><br />
-      <span><b>Nazwisko: </b>{{ client.surname }}</span></v-card-text
-    >
-    <v-card-actions>
-      <v-btn @click="openDetails">Szczegóły</v-btn>
-    </v-card-actions>
+<v-container>
+  <v-card elevation="8" class="roudned-lg indigo lighten-5 mt-5">
+    <v-toolbar
+    elevation="0"
+  class="indigo lighten-3"
+>
+  <span>Dane klienta</span>
+</v-toolbar>
+   <v-form>
+    <v-container>
+      <v-row>
+        <v-col> 
+          <v-text-field
+            v-model="client.name"
+            label="Imię"
+            required
+          ></v-text-field>
+        </v-col>
 
-    <ClientDataDetails v-model="dialog" v-if="dialogInitialized" />
+        <v-col>
+          <v-text-field
+            v-model="client.phone"
+            label="Numer teleofnu"
+            required
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="client.email"
+            label="E-mail"
+            required
+          ></v-text-field>
+        </v-col>
+
+        <v-col>
+        <v-textarea
+          v-model="client.adress"
+          label="Adres do korespondencji"
+        ></v-textarea>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
   </v-card>
+ 
+  </v-container>
 </template>
 <script>
 export default {
-  components: {
-    "ClientDataDetails": () => import('./ClientDataDetails')
+  components: {},
+  mounted() {
+    this.context = window.coachViewContext;
+    this.initData();
   },
   data: () => ({
-    client: {
-      name: "John",
-      surname: "Doe",
-    },
-    dialog: false,
-    dialogInitialized: false,
+    client: {},
+    context: null,
   }),
   methods: {
-    openDetails() {
-      this.dialogInitialized = true;
-      this.dialog = true;
+    initData() {
+      this.client = this.context.binding.get("value").clientData;
     },
   },
 };
 </script>
 
 <style>
-.clientData {
-  font-size: 20px;
-}
 </style>

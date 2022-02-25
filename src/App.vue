@@ -11,6 +11,9 @@
     <v-main>
       <v-container>
         <ClientData />
+        <OrderDetails />
+
+        
       </v-container>
     </v-main>
   </v-app>
@@ -18,10 +21,12 @@
 
 <script>
 import ClientData from "./components/ClientData";
+import OrderDetails from './components/OrderDetails';
 export default {
   name: "App",
   components: {
     ClientData,
+    OrderDetails
   },
   data: () => ({
     //
