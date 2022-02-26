@@ -5,8 +5,10 @@ require('dotenv').config();
 
 const options = {
   assetType: 'WEB',
-  url: 'https://192.168.122.90:9443',
-  containerRef: '2063.1007feab-e89c-41e5-9bad-a48eb2939177',
+  // url: 'https://192.168.122.90:9443',
+  url: 'https://192.168.122.180:9443/', //stara wersja bpm
+  // containerRef: '2063.1007feab-e89c-41e5-9bad-a48eb2939177',
+  containerRef: '2063.c56ecea7-714b-4476-a4c8-7f7e65ba5f66', //stara wersja bpm
   username: process.env.BPM_USER,
   password: process.env.BPM_PASSWORD
 };

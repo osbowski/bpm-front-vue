@@ -12,8 +12,6 @@
       <v-container>
         <ClientData />
         <OrderDetails />
-
-        
       </v-container>
     </v-main>
   </v-app>
@@ -21,15 +19,25 @@
 
 <script>
 import ClientData from "./components/ClientData";
-import OrderDetails from './components/OrderDetails';
+import OrderDetails from "./components/OrderDetails";
 export default {
   name: "App",
   components: {
     ClientData,
-    OrderDetails
+    OrderDetails,
+  },
+  beforeMount() {
+    this.context = window.coachViewContext;
+    this.initData();
   },
   data: () => ({
-    //
+    context: null,
   }),
+  methods: {
+    initData() {
+      const leasData = this.context.binding.get("value");
+      this.$store.commit("setLeasData", leasData);
+    },
+  },
 };
 </script>

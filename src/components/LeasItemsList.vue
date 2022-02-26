@@ -86,20 +86,17 @@
 <script>
 import DataService from "../DataService/DataService";
 export default {
-  props: ["daysOfLeas"],
   components: {},
   mounted() {
-    this.context = window.coachViewContext;
-    this.initData();
     this.getAllItemsTypes();
     this.getAllItems();
+    this.leasItems = this.$store.getters.getLeasItems;
   },
   data: () => ({
     allItems: [],
     leasItems: [],
     itemTypes: [],
     itemsByType: [],
-    context: null,
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -144,10 +141,6 @@ export default {
     },
   },
   methods: {
-    initData() {
-      const contextBinding = this.context.binding.get("value");
-      this.leasItems = contextBinding.leasItems;
-    },
     async getAllItems() {
       const items = await DataService.getAllItems();
       items.map((item) => this.allItems.push(item));
@@ -177,7 +170,12 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.leasItems.splice(this.editedIndex, 1);
+      this.$store.commit("removeItem", this.editedIndex);
+      this.$store.commit("subtractFinalLeasPrice", this.editedItem.leasFullPrice);
+      this.$store.commit("subtractFinalDepositPrice", this.editedItem.depositPrice);
+      const finalPrice =
+        this.editedItem.leasFullPrice + this.editedItem.depositPrice;
+      this.$store.commit("subtractFinalPrice", finalPrice);
       this.closeDelete();
     },
 
@@ -205,10 +203,18 @@ export default {
           (item) => item.name === this.editedItem.name
         );
         searchedItem.leasFullPrice =
-          searchedItem.leasPriceForDay * this.daysOfLeas;
+          searchedItem.leasPriceForDay *
+          this.$store.getters.getLeasData.daysOfLeas;
         this.editedItem = searchedItem;
-        this.leasItems.push(this.editedItem);
-        console.log(this.daysOfLeas);
+        this.$store.commit("sumFinalLeasPrice", this.editedItem.leasFullPrice);
+        this.$store.commit(
+          "sumFinalDepositPrice",
+          this.editedItem.depositPrice
+        );
+        const finalPrice =
+          this.editedItem.leasFullPrice + this.editedItem.depositPrice;
+        this.$store.commit("sumFinalPrice", finalPrice);
+        this.$store.commit("addItem", this.editedItem);
       }
       this.close();
     },

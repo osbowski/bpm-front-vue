@@ -3,7 +3,7 @@
       <v-col>
         <v-card class="summaryCard" elevation="5">
           <v-card-title class="justify-center">
-            2500
+            {{leasData.finalLeasPrice}}
           </v-card-title>
           <v-card-text class="text-center">
             Całkowity koszt wynajmu
@@ -13,7 +13,7 @@
       <v-col>
         <v-card elevation="5" class="summaryCard">
           <v-card-title class="justify-center">
-            4000
+            {{leasData.finalDepositPrice}}
           </v-card-title>
           <v-card-text class="text-center">
             Całkowita Kaucja
@@ -23,7 +23,7 @@
       <v-col>
         <v-card elevation="5" class="summaryCard">
           <v-card-title class="justify-center">
-            6500
+            {{leasData.finalPrice}}
           </v-card-title>
           <v-card-text class="text-center">
             Pełny koszt zamówienia
@@ -35,6 +35,13 @@
 
 <script>
 export default {
+  mounted(){
+    this.leasData = this.$store.getters.getLeasData
+  },
+  data:()=>({
+    leasData:{}
+  }),
+
 
 }
 </script>
