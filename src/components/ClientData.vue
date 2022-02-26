@@ -3,10 +3,12 @@
   <v-card elevation="8" class="roudned-lg indigo lighten-5 mt-5">
     <v-toolbar
     elevation="0"
-  class="indigo lighten-3"
+    dark
+  class="indigo"
 >
   <span>Dane klienta</span>
 </v-toolbar>
+<v-container class="px-15">
    <v-form>
     <v-container>
       <v-row>
@@ -44,6 +46,7 @@
       </v-row>
     </v-container>
   </v-form>
+  </v-container>
   </v-card>
  
   </v-container>

@@ -1,93 +1,92 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="leasItems"
-    :hide-default-footer="true"
-    class="itemsTable indigo lighten-5"
-  >
-    <template v-slot:top>
-      <v-toolbar flat class="indigo lighten-5">
-        <v-toolbar-title>Prezdmioty do wynajęcia</v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
-        <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="indigo lighten-3"
-              dark
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
-            >
-              Dodaj przedmiot
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">Dodawanie przedmiotu</span>
-            </v-card-title>
+  <v-container>
+    <v-data-table
+      :headers="headers"
+      :items="leasItems"
+      :hide-default-footer="true"
+      class="headline itemsTable indigo lighten-5 mb-10"
+    >
+      <template v-slot:top>
+        <v-toolbar flat class="indigo lighten-5">
+          <v-toolbar-title>Prezdmioty do wynajęcia</v-toolbar-title>
+          <v-divider class="mx-4" inset vertical></v-divider>
+          <v-spacer></v-spacer>
+          <v-dialog v-model="dialog" max-width="500px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="indigo" dark class="mb-2" v-bind="attrs" v-on="on">
+                Dodaj przedmiot
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="text-h5">Dodawanie przedmiotu</span>
+              </v-card-title>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col>
-                    <v-select
-                      @change="getItemsByType"
-                      :items="itemTypes"
-                      label="Typ przedmiotu"
-                      v-model="editedItem.type"
-                      outlined
-                    ></v-select>
-                  </v-col>
-                  <v-col>
-                    <v-select
-                      :items="itemsByType"
-                      label="Przedmiot"
-                      v-model="editedItem.name"
-                      outlined
-                    ></v-select>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col>
+                      <v-select
+                        @change="getItemsByType"
+                        :items="itemTypes"
+                        label="Typ przedmiotu"
+                        v-model="editedItem.type"
+                        outlined
+                      ></v-select>
+                    </v-col>
+                    <v-col>
+                      <v-select
+                        :items="itemsByType"
+                        label="Przedmiot"
+                        v-model="editedItem.name"
+                        outlined
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close"> Anuluj </v-btn>
-              <v-btn color="blue darken-1" text @click="save"> Zapisz </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5"
-              >Usunąć przedmiot z listy?</v-card-title
-            >
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Nie</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >Tak</v-btn
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">
+                  Anuluj
+                </v-btn>
+                <v-btn color="blue darken-1" text @click="save"> Zapisz </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <v-dialog v-model="dialogDelete" max-width="500px">
+            <v-card>
+              <v-card-title class="text-h5"
+                >Usunąć przedmiot z listy?</v-card-title
               >
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon small @click="deleteItem(item)"> X </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn color="indigo lighten-3" @click="resetTable">
-        Wyczyść listę
-      </v-btn>
-    </template>
-  </v-data-table>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDelete"
+                  >Nie</v-btn
+                >
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  >Tak</v-btn
+                >
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+      <template v-slot:item.actions="{ item }">
+        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+      </template>
+      <template slot="no-data">
+        <p>Dodaj przedmioty do wynajęcia</p>
+      </template>
+    </v-data-table>
+  </v-container>
 </template>
 <script>
 import DataService from "../DataService/DataService";
 export default {
+  props: ["daysOfLeas"],
   components: {},
   mounted() {
     this.context = window.coachViewContext;
@@ -100,22 +99,25 @@ export default {
     leasItems: [],
     itemTypes: [],
     itemsByType: [],
-    daysOfLeas:0,
     context: null,
     dialog: false,
     dialogDelete: false,
     headers: [
       {
         text: "Typ",
-        align: "start",
+        align: "center",
         sortable: false,
         value: "type",
       },
-      { text: "Przedmiot", value: "name", sortable: false },
-      { text: "Cena wynajmu (1 dzień)", value: "leasPriceForDay" },
-      { text: "Całkowita cena wynajmu", value: "leasFullPrice" },
-      { text: "Kacuja", value: "depositPrice" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Przedmiot", value: "name", sortable: false, align: "center" },
+      {
+        text: "Cena wynajmu (1 dzień)",
+        value: "leasPriceForDay",
+        align: "end",
+      },
+      { text: "Całkowita cena wynajmu", value: "leasFullPrice", align: "end" },
+      { text: "Kacuja", value: "depositPrice", align: "end" },
+      { text: "Actions", value: "actions", sortable: false, align: "center" },
     ],
     editedIndex: -1,
     editedItem: {
@@ -199,10 +201,14 @@ export default {
       if (this.editedIndex > -1) {
         Object.assign(this.leasItems[this.editedIndex], this.editedItem);
       } else {
-        const searchedItem = this.allItems.find(item=>item.name === this.editedItem.name)
-        searchedItem.leasFullPrice = 
+        const searchedItem = this.allItems.find(
+          (item) => item.name === this.editedItem.name
+        );
+        searchedItem.leasFullPrice =
+          searchedItem.leasPriceForDay * this.daysOfLeas;
         this.editedItem = searchedItem;
         this.leasItems.push(this.editedItem);
+        console.log(this.daysOfLeas);
       }
       this.close();
     },
@@ -213,5 +219,9 @@ export default {
 <style>
 .itemsTable {
   width: 100%;
+}
+
+td {
+  font-size: 1.2rem !important;
 }
 </style>
