@@ -150,20 +150,12 @@ export default {
       types.map((type) => this.itemTypes.push(type));
     },
     getItemsByType(type) {
-      this.itemsByType = [];
-      const filtredItems = this.allItems.filter((item) => item.type == type);
+      const filtredItems = this.allItems.filter((item) => item.type === type);
       filtredItems.map((item) => this.itemsByType.push(item.name));
-    },
-    resetTable() {
-      this.leasItems = [];
-    },
-    editItem(item) {
-      this.editedIndex = this.leasItems.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
     },
 
     deleteItem(item) {
+      console.log(item);
       this.editedIndex = this.leasItems.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
