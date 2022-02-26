@@ -1,7 +1,7 @@
 <template>
       <v-row class="mt-15 mb-10 px-7 d-flex justify-space-around" >
       <v-col>
-        <v-card elevation="5">
+        <v-card class="summaryCard" elevation="5">
           <v-card-title class="justify-center">
             2500
           </v-card-title>
@@ -11,7 +11,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card elevation="5">
+        <v-card elevation="5" class="summaryCard">
           <v-card-title class="justify-center">
             4000
           </v-card-title>
@@ -21,7 +21,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card elevation="5">
+        <v-card elevation="5" class="summaryCard">
           <v-card-title class="justify-center">
             6500
           </v-card-title>
@@ -40,10 +40,10 @@ export default {
 </script>
 
 <style>
-.v-card{
+.summaryCard{
     transition: 300ms;
 }
-.v-card:hover{
+.summaryCard:hover{
     transform: translateY(-20px);
 }
 

@@ -43,7 +43,7 @@
       <OrderSummary />
     </v-row>
     <v-container class="d-flex justify-end px-11">
-      <v-btn color="indigo" dark class="mb-10">
+      <v-btn color="indigo" dark class="mb-10" @click='sendData'>
         Wyślij zamówienie
       </v-btn>
     </v-container>
@@ -78,6 +78,9 @@ export default {
       this.daysOfLeas = contextBinding.daysOfLeas;
       this.leasStartDate = contextBinding.leasStartDate;
     },
+    sendData(){
+      console.log(this.$store.getters.getClientData)
+    }
   },
 };
 </script>

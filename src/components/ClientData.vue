@@ -23,7 +23,7 @@
         <v-col>
           <v-text-field
             v-model="client.phone"
-            label="Numer teleofnu"
+            label="Numer telefonu"
             required
           ></v-text-field>
         </v-col>
@@ -57,6 +57,7 @@ export default {
   mounted() {
     this.context = window.coachViewContext;
     this.initData();
+    this.client = this.$store.getters.getClientData;
   },
   data: () => ({
     client: {},
@@ -64,7 +65,8 @@ export default {
   }),
   methods: {
     initData() {
-      this.client = this.context.binding.get("value").clientData;
+      const ClientDataFromContext = this.context.binding.get("value").clientData;
+      this.$store.commit('setClientData', ClientDataFromContext)
     },
   },
 };

@@ -5,13 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    leasData:{}
+    leasData:{
+    }
   },
   mutations: {
-    
+    setClientData(state,payload){
+      state.leasData.ClientData = payload;
+    }
   },
   actions: {
   },
-  modules: {
+  getters: {
+    getClientData(state){
+      return state.leasData.ClientData;
+    }
   }
 })
