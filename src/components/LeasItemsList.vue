@@ -75,7 +75,7 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+        <v-btn @click="deleteItem(item)"> Usuń </v-btn>
       </template>
       <template slot="no-data">
         <p>Dodaj przedmioty do wynajęcia</p>
@@ -150,6 +150,7 @@ export default {
       types.map((type) => this.itemTypes.push(type));
     },
     getItemsByType(type) {
+      this.itemsByType = []
       const filtredItems = this.allItems.filter((item) => item.type === type);
       filtredItems.map((item) => this.itemsByType.push(item.name));
     },

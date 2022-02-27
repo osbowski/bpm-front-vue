@@ -36,6 +36,7 @@ export default {
   methods: {
     initData() {
       const leasData = this.context.binding.get("value");
+      leasData.leasItems = leasData.leasItems.items;
       this.$store.commit("setLeasData", leasData);
     },
   },

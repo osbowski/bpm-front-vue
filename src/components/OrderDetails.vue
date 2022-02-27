@@ -71,8 +71,10 @@ export default {
   }), 
   methods: {
     sendData() {
-      console.log(this.leasData)
-      this.context.binding.set('value',this.leasData);
+      // console.log(this.context.binding.get('value'))
+      // this.context.binding.getValue().set('value',this.leasData);
+      this.context.binding.get("value").set("clientData", this.leasData.clientData)
+      console.log('save data')
       this.context.trigger();
     },
   },
