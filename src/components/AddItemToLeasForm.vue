@@ -54,7 +54,6 @@ export default {
     },
     getItemsByType(type) {
       this.itemsByType = [];
-      console.log('TYP PRZEDMIOTU:',type)
       const filtredItems = this.allItems.filter((item) => item.type == type);
       filtredItems.map((item) => this.itemsByType.push(item.name));
     },

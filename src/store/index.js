@@ -17,22 +17,22 @@ export default new Vuex.Store({
     removeItem(state, payload) {
       state.leasData.leasItems.splice(payload, 1);
     },
-    sumFinalLeasPrice(state,payload){
-      state.leasData.finalLeasPrice +=payload;
+    sumFinalLeasPrice(state, payload) {
+      state.leasData.finalLeasPrice += payload;
     },
-    sumFinalDepositPrice(state,payload){
-      state.leasData.finalDepositPrice+=payload;
+    sumFinalDepositPrice(state, payload) {
+      state.leasData.finalDepositPrice += payload;
     },
-    sumFinalPrice(state,payload){
+    sumFinalPrice(state, payload) {
       state.leasData.finalPrice += payload;
     },
-    subtractFinalLeasPrice(state,payload){
-      state.leasData.finalLeasPrice -=payload;
+    subtractFinalLeasPrice(state, payload) {
+      state.leasData.finalLeasPrice -= payload;
     },
-    subtractFinalDepositPrice(state,payload){
-      state.leasData.finalDepositPrice-=payload;
+    subtractFinalDepositPrice(state, payload) {
+      state.leasData.finalDepositPrice -= payload;
     },
-    subtractFinalPrice(state,payload){
+    subtractFinalPrice(state, payload) {
       state.leasData.finalPrice -= payload;
     },
   },

@@ -1,24 +1,24 @@
-const request = require('request');
-const acceptableStatusCodes = ['200', '201'];
-const fs = require('fs');
-require('dotenv').config();
+const request = require("request");
+const acceptableStatusCodes = ["200", "201"];
+const fs = require("fs");
+require("dotenv").config();
 
 const options = {
-  assetType: 'WEB',
-  // url: 'https://192.168.122.90:9443',
-  url: 'https://192.168.122.180:9443', //stara wersja bpm
-  // containerRef: '2063.1007feab-e89c-41e5-9bad-a48eb2939177',
-  containerRef: '2063.c56ecea7-714b-4476-a4c8-7f7e65ba5f66', //stara wersja bpm
+  assetType: "WEB",
+  url: "https://192.168.122.90:9443",
+  // url: 'https://192.168.122.180:9443', //stara wersja bpm
+  containerRef: "2063.1007feab-e89c-41e5-9bad-a48eb2939177",
+  // containerRef: '2063.c56ecea7-714b-4476-a4c8-7f7e65ba5f66', //stara wersja bpm
   username: process.env.BPM_USER,
-  password: process.env.BPM_PASSWORD
+  password: process.env.BPM_PASSWORD,
 };
 
-const deploy = async function(file, options) {
-  return new Promise(resolve => {
+const deploy = async function (file, options) {
+  return new Promise((resolve) => {
     const formData = {
       asset: fs.createReadStream(file),
       assetType: options.assetType,
-      localLastMod: Date.now()
+      localLastMod: Date.now(),
     };
     var url = `${options.url}/rest/bpm/wle/pd/v1/managedAsset?containerRef=${options.containerRef}`;
 
@@ -28,20 +28,26 @@ const deploy = async function(file, options) {
         formData,
         auth: {
           username: options.username,
-          password: options.password
+          password: options.password,
         },
-        strictSSL: false
+        strictSSL: false,
       },
       (err, httpResponse) => {
         if (err) {
-          console.warn('upload failed:', err);
+          console.warn("upload failed:", err);
           resolve(false);
         } else {
-          if (!acceptableStatusCodes.includes(httpResponse.statusCode.toString())) {
-            console.warn(`File ${file} upload failed`, httpResponse.statusCode, httpResponse.statusMessage);
+          if (
+            !acceptableStatusCodes.includes(httpResponse.statusCode.toString())
+          ) {
+            console.warn(
+              `File ${file} upload failed`,
+              httpResponse.statusCode,
+              httpResponse.statusMessage
+            );
             resolve(false);
           } else {
-            console.log('Deployed successfully');
+            console.log("Deployed successfully");
             resolve(true);
           }
         }
@@ -50,4 +56,4 @@ const deploy = async function(file, options) {
   });
 };
 
-deploy('./dist/zip/mu-bpm-frontend.zip', options);
+deploy("./dist/zip/mu-bpm-frontend.zip", options);

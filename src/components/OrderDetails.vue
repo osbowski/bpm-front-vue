@@ -52,7 +52,7 @@
 </template>
 
 <script>
-// import AddItemToLeasForm from "./AddItemToLeasForm";
+import { v4 as uuidv4 } from "uuid";
 import LeasItemsList from "./LeasItemsList.vue";
 import OrderSummary from "./OrderSummary.vue";
 export default {
@@ -68,13 +68,10 @@ export default {
     leasData: {},
     menu: false,
     context: null,
-  }), 
+  }),
   methods: {
     sendData() {
-      // console.log(this.context.binding.get('value'))
-      // this.context.binding.getValue().set('value',this.leasData);
-      this.context.binding.get("value").set("clientData", this.leasData.clientData)
-      console.log('save data')
+      this.leasData.leasID = uuidv4();
       this.context.trigger();
     },
   },

@@ -85,6 +85,7 @@
 </template>
 <script>
 import DataService from "../DataService/DataService";
+import { v4 as uuidv4 } from "uuid";
 export default {
   components: {},
   mounted() {
@@ -150,13 +151,12 @@ export default {
       types.map((type) => this.itemTypes.push(type));
     },
     getItemsByType(type) {
-      this.itemsByType = []
+      this.itemsByType = [];
       const filtredItems = this.allItems.filter((item) => item.type === type);
       filtredItems.map((item) => this.itemsByType.push(item.name));
     },
 
     deleteItem(item) {
-      console.log(item);
       this.editedIndex = this.leasItems.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
@@ -164,8 +164,14 @@ export default {
 
     deleteItemConfirm() {
       this.$store.commit("removeItem", this.editedIndex);
-      this.$store.commit("subtractFinalLeasPrice", this.editedItem.leasFullPrice);
-      this.$store.commit("subtractFinalDepositPrice", this.editedItem.depositPrice);
+      this.$store.commit(
+        "subtractFinalLeasPrice",
+        this.editedItem.leasFullPrice
+      );
+      this.$store.commit(
+        "subtractFinalDepositPrice",
+        this.editedItem.depositPrice
+      );
       const finalPrice =
         this.editedItem.leasFullPrice + this.editedItem.depositPrice;
       this.$store.commit("subtractFinalPrice", finalPrice);
@@ -207,6 +213,7 @@ export default {
         const finalPrice =
           this.editedItem.leasFullPrice + this.editedItem.depositPrice;
         this.$store.commit("sumFinalPrice", finalPrice);
+        this.editedItem.id = uuidv4();
         this.$store.commit("addItem", this.editedItem);
       }
       this.close();

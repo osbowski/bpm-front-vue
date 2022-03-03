@@ -47,10 +47,12 @@
   </v-container>
 </template>
 <script>
+import { v4 as uuidv4 } from "uuid";
 export default {
   components: {},
   mounted() {
     this.client = this.$store.getters.getClientData;
+    this.client.id = uuidv4();
   },
   data: () => ({
     client: {},

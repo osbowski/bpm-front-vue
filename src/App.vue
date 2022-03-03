@@ -1,11 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar app color="purple darken-3" dark elevation="4">
-      <div class="d-flex align-center">
-        <span>AKADEMIA IBPM 2022</span>
-      </div>
-
+    <v-app-bar app color="indigo" dark class="px-16">
+      <v-toolbar-title>AKADEMIA IBPM 2022</v-toolbar-title>
       <v-spacer></v-spacer>
+      <span>Proces wynajmu</span>
     </v-app-bar>
 
     <v-main>
